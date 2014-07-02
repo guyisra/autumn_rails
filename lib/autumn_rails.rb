@@ -1,5 +1,8 @@
 require "autumn_rails/version"
 
 module AutumnRails
-  # Your code goes here...
+  module Rails
+    class Engine < ::Rails::Engine
+    end
+  end
 end

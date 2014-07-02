@@ -1,6 +1,6 @@
 # AutumnRails
 
-TODO: Write a gem description
+Leaflet for jQuery for Rails 3.1, 4
 
 ## Installation
 
@@ -18,8 +18,14 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+add to manifest
 
+    //= require 'jquery.autumn.js'
+
+don't forget to add jquery and leaflet.js
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/autumn_rails/fork )

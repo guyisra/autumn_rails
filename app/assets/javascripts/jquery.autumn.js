@@ -1,4 +1,4 @@
-/*! autumn - v0.0.1 - 2014-07-02
+/*! autumn - v0.0.2 - 2014-07-03
 * https://github.com/guyisra/autumn
 * Copyright (c) 2014 Guy Israeli; Licensed MIT */
 // the semi-colon before function invocation is a safety net against concatenated
@@ -11,12 +11,12 @@
           container: "map",
           scrollWheenZoom: false,
           center: [51.1788, -1.8262], //stonehenge, that's why
-          maxZoom: 10,
+          maxZoom: 18,
           tiles_url: "http://{s}.tiles.mapbox.com/v3/<MAP ID>/{z}/{x}/{y}.png",
           attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
         },
         map,
-        layer =  new L.layerGroup(); // TODO this better...
+        layer =  new L.featureGroup(); // TODO this better...
 
     // The actual plugin constructor
     function Autumn ( element, options ) {
@@ -37,13 +37,13 @@
         addMarker: function ( latLng, name) {
           L.marker(latLng).addTo(map);
         },
-        deleteMarkers: function(layerGroup){
-          if (layerGroup){
-            map.removeLayer(layerGroup)
+        deleteMarkers: function(layerToRemove){
+          if (layerToRemove){
+            map.removeLayer(layerToRemove);
           }
           else{
             map.removeLayer(layer);
-            layer = new L.LayerGroup();
+            layer = new L.featureGroup();
           }
         }
     };
@@ -74,25 +74,26 @@
                 }
             });
           case 'addMarker':
-            var markers; // marker: {latLng, }
-            if (!$.isArray(options.markers[0])){ //single markers
-              if (typeof(options.markers[0]) == "string"){
-                markers = [JSON.parse(options.markers)];
-              }
-              else{
-                markers = [options.markers];
-              }
-            }
-            else{
-              markers = options.markers; //many markers
-            }
-            $.each(markers, function(index){
-              L.marker(this).addTo(layer);
+            var coord = (options.marker);
+            var marker =  L.marker(coord);
+            marker.addTo(layer);
+            layer.addTo(map);
+            return marker;
+          case 'addMarkers':
+            var coords = options.markers;
+            var markers = [];
+            $.each(coords, function(index){
+              var marker = L.marker(this);
+              markers.push(marker);
+              marker.addTo(layer);
             });
-            layer.addTo(map)
+            layer.addTo(map);
             return this;
           case 'deleteMarkers':
             a.deleteMarkers();
+            return this;
+          case 'fitMarkers':
+			      map.fitBounds(layer.getBounds(), {maxZoom: 18});
             return this;
       }
 

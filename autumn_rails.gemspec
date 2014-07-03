@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Guy Israeli"]
   spec.email         = ["guy.israeli@gmail.com"]
   spec.summary       = %q{leaflet.js for jQuery for Rails 3.1 and up}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.description   = %q{ Write a longer description. Optional.}
   spec.homepage      = ""
   spec.license       = "MIT"
 

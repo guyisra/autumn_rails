@@ -1,6 +1,7 @@
-/*! autumn - v0.0.2 - 2014-07-03
+/*! autumn - v0.0.3 - 2014-07-06
 * https://github.com/guyisra/autumn
 * Copyright (c) 2014 Guy Israeli; Licensed MIT */
+
 // the semi-colon before function invocation is a safety net against concatenated
 // scripts and/or other plugins which may not be closed properly.
 ;(function ( $, window, document, undefined ) {
@@ -8,15 +9,13 @@
     // Create the defaults once
     var pluginName = "autumn",
         defaults = {
-          container: "map",
-          scrollWheenZoom: false,
+          scrollWheelZoom: false,
           center: [51.1788, -1.8262], //stonehenge, that's why
           maxZoom: 18,
           tiles_url: "http://{s}.tiles.mapbox.com/v3/<MAP ID>/{z}/{x}/{y}.png",
           attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
-        },
-        map,
-        layer =  new L.featureGroup(); // TODO this better...
+        };
+
 
     // The actual plugin constructor
     function Autumn ( element, options ) {
@@ -29,21 +28,22 @@
 
     Autumn.prototype = {
         init: function () {
-            map = L.map(this.element.id,this.options).setView(this.options.center, 17);
+            var map = L.map(this.element.id,this.options).setView(this.options.center, 17);
             this._map = map;
+            this.layer =  new L.featureGroup(); // TODO this better...
             L.tileLayer(this.options.tiles_url, { attribution: this.options.attribution, maxZoom: this.options.maxZoom
                                                       }).addTo(map);
         },
         addMarker: function ( latLng, name) {
-          L.marker(latLng).addTo(map);
+          L.marker(latLng).addTo(this._map);
         },
         deleteMarkers: function(layerToRemove){
           if (layerToRemove){
-            map.removeLayer(layerToRemove);
+            this._map.removeLayer(layerToRemove);
           }
           else{
-            map.removeLayer(layer);
-            layer = new L.featureGroup();
+            this._map.removeLayer(this.layer);
+            this.layer = new L.featureGroup();
           }
         }
     };
@@ -76,8 +76,8 @@
           case 'addMarker':
             var coord = (options.marker);
             var marker =  L.marker(coord);
-            marker.addTo(layer);
-            layer.addTo(map);
+            marker.addTo(a.layer);
+            a.layer.addTo(a._map);
             return marker;
           case 'addMarkers':
             var coords = options.markers;
@@ -85,15 +85,15 @@
             $.each(coords, function(index){
               var marker = L.marker(this);
               markers.push(marker);
-              marker.addTo(layer);
+              marker.addTo(a.layer);
             });
-            layer.addTo(map);
+            a.layer.addTo(a._map);
             return this;
           case 'deleteMarkers':
             a.deleteMarkers();
             return this;
           case 'fitMarkers':
-			      map.fitBounds(layer.getBounds(), {maxZoom: 18});
+            a._map.fitBounds(a.layer.getBounds(), {maxZoom: 16});
             return this;
       }
 

@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Guy Israeli"]
   spec.email         = ["guy.israeli@gmail.com"]
   spec.summary       = %q{leaflet.js for jQuery for Rails 3.1 and up}
-  spec.description   = %q{ Write a longer description. Optional.}
+  spec.description   = %q{I couldn't find an easy and convinient way to attach maps to DOM elements with leaflet. So I wrote this plugin which hopefully helps working with leaflet maps.}
   spec.homepage      = ""
   spec.license       = "MIT"
 

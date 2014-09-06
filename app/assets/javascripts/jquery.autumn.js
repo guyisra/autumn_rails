@@ -1,4 +1,4 @@
-/*! autumn - v0.0.3 - 2014-07-06
+/*! autumn - v0.0.4 - 2014-09-06
 * https://github.com/guyisra/autumn
 * Copyright (c) 2014 Guy Israeli; Licensed MIT */
 
@@ -9,12 +9,25 @@
     // Create the defaults once
     var pluginName = "autumn",
         defaults = {
-          scrollWheelZoom: false,
-          center: [51.1788, -1.8262], //stonehenge, that's why
-          maxZoom: 18,
-          tiles_url: "http://{s}.tiles.mapbox.com/v3/<MAP ID>/{z}/{x}/{y}.png",
-          attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
-        };
+             center: null,
+             zoom: null,
+             layers: null,
+             minZoom: null,
+             maxZoom: 18,
+             maxBounds: null,
+             dragging: true,
+             touchZoom: true,
+             scrollWheelZoom: false,
+             doubleClickZoom: false,
+             boxZoom: true,
+             tapTolerance: 15,
+             trackResize: true,
+             worldCopyJump: false,
+             closePopupOnClick: true,
+             bounceAtZoomLimits: true,
+             tiles_url: "http://{s}.tiles.mapbox.com/v3/<MAP ID>/{z}/{x}/{y}.png",
+             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>'
+           };
 
 
     // The actual plugin constructor

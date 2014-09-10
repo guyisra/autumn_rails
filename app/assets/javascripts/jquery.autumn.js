@@ -1,4 +1,4 @@
-/*! autumn - v0.0.4 - 2014-09-06
+/*! autumn - v0.0.4.1 - 2014-09-10
 * https://github.com/guyisra/autumn
 * Copyright (c) 2014 Guy Israeli; Licensed MIT */
 
@@ -20,6 +20,7 @@
              scrollWheelZoom: false,
              doubleClickZoom: false,
              boxZoom: true,
+             tap: true,
              tapTolerance: 15,
              trackResize: true,
              worldCopyJump: false,
